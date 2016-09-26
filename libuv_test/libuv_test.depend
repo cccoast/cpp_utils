@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1474556676 source:/home/xudi/cpp/libuv_test/main.cpp
+	<stdio.h>
+	<stdlib.h>
+	<uv.h>
+
