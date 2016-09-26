@@ -8,6 +8,6 @@ using namespace std;
 
 int main(){
 
-    cout << "hello xudi, what's your name" << endl;
+    cout << "hello xudi, what's your name, age?" << endl;
     return 0;
 }
