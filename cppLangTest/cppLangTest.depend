@@ -1,0 +1,13 @@
+# depslib dependency file v1.0
+1475030571 source:/home/xudi/cpp/cppLangTest/main.cpp
+	<iostream>
+	<stdio.h>
+	<memory>
+
+1474961195 source:/home/xudi/cpp/cppLangTest/jemalloc_test.cpp
+	<iostream>
+
+1475031683 source:/home/xudi/cpp/cppLangTest/gtest_test.cpp
+	<iostream>
+	"gtest/gtest.h"
+

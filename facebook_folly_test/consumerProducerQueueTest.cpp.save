@@ -11,17 +11,17 @@
 
 using namespace std;
 
-void show(folly::fbstring& s){
+void show(string& s){
     cout << s << endl;
 }
 
-int produceConsumerTest(){
+int main(){
 
-    folly::ProducerConsumerQueue<folly::fbstring> _queue(10000);
+    folly::ProducerConsumerQueue<string> _queue(10000);
 
     std::thread reader([&_queue] {
       for (;;) {
-        folly::fbstring str;
+        string str;
         while (!_queue.read(str)) {
           //spin until we get a value
           continue;
@@ -33,11 +33,12 @@ int produceConsumerTest(){
 
     // producer thread:
     for (;;) {
-      folly::fbstring str = "hello";
+      string str = "hello";
       while (_queue.write(str)) {
         //spin until the queue has room
         this_thread::sleep_for(std::chrono::seconds(1));
         cout << "send!" << endl;
+        continue;
       }
     }
 

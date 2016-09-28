@@ -1,0 +1,35 @@
+# depslib dependency file v1.0
+1474963448 source:/home/xudi/cpp/facebook_folly_test/consumerProducerQueueTest.cpp
+	<iostream>
+	<memory>
+	<functional>
+	<thread>
+	<chrono>
+	<unistd.h>
+	<folly/ProducerConsumerQueue.h>
+	<folly/FBString.h>
+
+1474948131 source:/home/xudi/cpp/facebook_folly_test/jemalloc_test.cpp
+	<iostream>
+
+1474987585 source:/home/xudi/cpp/facebook_folly_test/fbstring_test.cpp
+	<iostream>
+	<memory>
+	<functional>
+	<thread>
+	<chrono>
+	<vector>
+	<unistd.h>
+	<folly/FBString.h>
+	<folly/FBVector.h>
+	<folly/Foreach.h>
+
+1475027081 source:/home/xudi/cpp/facebook_folly_test/benchmark_test.cpp
+	<folly/Benchmark.h>
+	<folly/Foreach.h>
+	<vector>
+
+1475028576 source:/home/xudi/cpp/facebook_folly_test/timeoutQueue_test.cpp
+	<folly/TimeoutQueue.h>
+	<folly/portability/GTest.h>
+

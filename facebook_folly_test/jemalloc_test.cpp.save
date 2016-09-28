@@ -1,0 +1,15 @@
+//##################################################################################
+//###@author xudi                                                                  #
+//###@Mail   xudi1989@ruc.edu.cn                                                   #
+//###@Lisence GPL                                                                  #
+//##################################################################################
+
+#include <iostream>
+#include <jemalloc/jemalloc.h>
+
+using namespace std;
+
+int main(){
+    int *p = malloc(sizeof)
+    return 0;
+}

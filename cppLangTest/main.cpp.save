@@ -1,0 +1,13 @@
+#include <iostream>
+#include <stdio.h>
+#include <memory>
+
+using namespace std;
+
+int main(){
+
+    int *p = new int[10];
+    new (&p[]) int(10);
+    cout << *p << endl;
+    return 0;
+}
