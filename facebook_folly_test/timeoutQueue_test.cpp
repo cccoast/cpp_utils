@@ -98,6 +98,7 @@ TEST(TimeoutQueue, RunOnceReschedule) {
   EXPECT_EQ(100, count);
 }
 
-int timeoutQueue_unitest(){
+int timeoutQueueTest(int argc,char* argv[]){
+    testing::InitGoogleTest(&argc,argv);
     RUN_ALL_TESTS();
 }

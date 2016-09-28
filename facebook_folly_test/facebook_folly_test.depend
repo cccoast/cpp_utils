@@ -29,7 +29,32 @@
 	<folly/Foreach.h>
 	<vector>
 
-1475028576 source:/home/xudi/cpp/facebook_folly_test/timeoutQueue_test.cpp
+1475048061 source:/home/xudi/cpp/facebook_folly_test/timeoutQueue_test.cpp
 	<folly/TimeoutQueue.h>
 	<folly/portability/GTest.h>
+
+1475051882 source:/home/xudi/cpp/facebook_folly_test/MCMPQueue.cpp
+
+1475030424 source:/home/xudi/cpp/facebook_folly_test/MCMPQueue_benchmark.cpp
+	<thread>
+	<iostream>
+	<stdio.h>
+	<pthread.h>
+	<folly/Benchmark.h>
+	<folly/ProducerConsumerQueue.h>
+	<folly/portability/GFlags.h>
+	<folly/stats/Histogram.h>
+	<folly/stats/Histogram-defs.h>
+	<glog/logging.h>
+
+1475052383 source:/home/xudi/cpp/facebook_folly_test/Synchronize.cpp
+	<iostream>
+	<thread>
+	<functional>
+	<folly/Synchronized.h>
+	<vector>
+	<queue>
+	<mutex>
+	<chrono>
+	<condition_variable>
 
