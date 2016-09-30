@@ -101,6 +101,28 @@ TEST(Synchronized,MCMP_ConditionVariable){
         }
     });
 
+    thread reader2([&sync_queue,&stopFlag,&empty_cv](){
+        while(true){
+            int front = -1;
+            {
+                auto _queue = sync_queue.lock();
+                empty_cv.wait(_queue.getUniqueLock(),[&_queue,&stopFlag](){
+                    return !_queue->empty() || stopFlag;
+                });
+                if(!_queue->empty()){
+                    front = _queue->front();
+                    _queue->pop();
+                }
+            }
+            if(stopFlag) return ;
+            else{
+                cout << "thread2 = " << front << endl;
+                front = -1;
+            }
+        }
+    });
+
+
     thread writer([&sync_queue,&stopFlag,&empty_cv](){
         int item = 0;
         while(true){
@@ -110,7 +132,7 @@ TEST(Synchronized,MCMP_ConditionVariable){
                 empty_cv.notify_one();
             }
             this_thread::sleep_for(1s);
-            if(item == 5){
+            if(item == 20){
                 stopFlag = true;
                 empty_cv.notify_all();
                 return ;
@@ -119,6 +141,7 @@ TEST(Synchronized,MCMP_ConditionVariable){
     });
     writer.join();
     reader1.join();
+    reader2.join();
     EXPECT_EQ(true,stopFlag);
 }
 

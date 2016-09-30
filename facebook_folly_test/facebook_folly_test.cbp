@@ -12,7 +12,7 @@
 				<Option type="1" />
 				<Option compiler="gcc" />
 				<Compiler>
-					<Add option="-std=c++11" />
+					<Add option="-std=c++14" />
 					<Add option="-g" />
 				</Compiler>
 				<Linker>
@@ -43,7 +43,7 @@
 			<Add option="-fexceptions" />
 		</Compiler>
 		<Unit filename="MCMPQueue.cpp" />
-		<Unit filename="MCMPQueue_benchmark.cpp" />
+		<Unit filename="Synchronize.cpp" />
 		<Unit filename="benchmark_test.cpp" />
 		<Unit filename="consumerProducerQueueTest.cpp" />
 		<Unit filename="fbstring_test.cpp" />
