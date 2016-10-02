@@ -65,7 +65,7 @@
 
 1475372174 source:/home/xudi/cpp/facebook_folly_test/mcmp_pipeline_test.cpp
 
-1475376898 source:/home/xudi/cpp/facebook_folly_test/subProcessTest.cpp
+1475399214 source:/home/xudi/cpp/facebook_folly_test/subProcessTest.cpp
 	<folly/Subprocess.h>
 	<folly/Exception.h>
 	<folly/Format.h>
@@ -82,4 +82,34 @@
 	<vector>
 	<gtest/gtest.h>
 	<boost/filesystem.hpp>
+
+1475403623 source:/home/xudi/cpp/facebook_folly_test/mcmp.cpp
+	<folly/MPMCQueue.h>
+	<folly/Format.h>
+	<folly/Memory.h>
+	<folly/Foreach.h>
+	<folly/portability/GTest.h>
+	<folly/portability/SysResource.h>
+	<folly/portability/SysTime.h>
+	<folly/portability/Unistd.h>
+	<folly/test/DeterministicSchedule.h>
+	<boost/intrusive_ptr.hpp>
+	<memory>
+	<functional>
+	<thread>
+	<utility>
+	<atomic>
+
+1475395780 source:/home/xudi/cpp/facebook_folly_test/atomic_hash_map_test.cpp
+	<folly/AtomicHashMap.h>
+	<glog/logging.h>
+	<thread>
+	<atomic>
+	<memory>
+	<folly/Assume.h>
+	<folly/Benchmark.h>
+	<folly/Conv.h>
+	<folly/portability/Atomic.h>
+	<folly/portability/GTest.h>
+	<folly/portability/SysTime.h>
 

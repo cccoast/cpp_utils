@@ -44,11 +44,12 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
-		<Unit filename="MCMPQueue.cpp" />
 		<Unit filename="Synchronize.cpp" />
+		<Unit filename="atomic_hash_map_test.cpp" />
 		<Unit filename="benchmark_test.cpp" />
 		<Unit filename="consumerProducerQueueTest.cpp" />
 		<Unit filename="fbstring_test.cpp" />
+		<Unit filename="mcmp.cpp" />
 		<Unit filename="mcmp_pipeline_test.cpp" />
 		<Unit filename="promise_future_test.cpp" />
 		<Unit filename="subProcessTest.cpp" />

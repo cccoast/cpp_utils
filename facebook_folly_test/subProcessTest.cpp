@@ -131,7 +131,7 @@ TEST(SUBPROCESS_CALL_BACK,CREATE_NEW_FILE){
 }
 
 
-int main(int argc,char* argv[]){
+int subProcessTest(int argc,char* argv[]){
     testing::InitGoogleTest(&argc,argv);
     RUN_ALL_TESTS();
     return 0;
