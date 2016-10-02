@@ -23,6 +23,8 @@
 					<Add option="-lfolly" />
 					<Add option="-lglog" />
 					<Add option="-lgtest_main" />
+					<Add option="-lboost_filesystem" />
+					<Add option="-lboost_system" />
 				</Linker>
 			</Target>
 			<Target title="Release">
@@ -47,6 +49,9 @@
 		<Unit filename="benchmark_test.cpp" />
 		<Unit filename="consumerProducerQueueTest.cpp" />
 		<Unit filename="fbstring_test.cpp" />
+		<Unit filename="mcmp_pipeline_test.cpp" />
+		<Unit filename="promise_future_test.cpp" />
+		<Unit filename="subProcessTest.cpp" />
 		<Unit filename="timeoutQueue_test.cpp" />
 		<Extensions>
 			<code_completion />

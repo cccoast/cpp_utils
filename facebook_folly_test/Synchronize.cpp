@@ -145,7 +145,8 @@ TEST(Synchronized,MCMP_ConditionVariable){
     EXPECT_EQ(true,stopFlag);
 }
 
-int main(int argc,char* argv[]){
+
+int SynchronizeTest(int argc,char* argv[]){
     testing::InitGoogleTest(&argc,argv);
     return RUN_ALL_TESTS();
 }

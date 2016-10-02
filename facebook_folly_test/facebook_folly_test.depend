@@ -33,7 +33,7 @@
 	<folly/TimeoutQueue.h>
 	<folly/portability/GTest.h>
 
-1475051882 source:/home/xudi/cpp/facebook_folly_test/MCMPQueue.cpp
+1475372174 source:/home/xudi/cpp/facebook_folly_test/MCMPQueue.cpp
 
 1475030424 source:/home/xudi/cpp/facebook_folly_test/MCMPQueue_benchmark.cpp
 	<thread>
@@ -47,7 +47,7 @@
 	<folly/stats/Histogram-defs.h>
 	<glog/logging.h>
 
-1475116485 source:/home/xudi/cpp/facebook_folly_test/Synchronize.cpp
+1475310415 source:/home/xudi/cpp/facebook_folly_test/Synchronize.cpp
 	<iostream>
 	<thread>
 	<functional>
@@ -58,4 +58,28 @@
 	<chrono>
 	<condition_variable>
 	<gtest/gtest.h>
+
+1475311428 source:/home/xudi/cpp/facebook_folly_test/promise_future_test.cpp
+	<folly/futures/Future.h>
+	<iostream>
+
+1475372174 source:/home/xudi/cpp/facebook_folly_test/mcmp_pipeline_test.cpp
+
+1475376898 source:/home/xudi/cpp/facebook_folly_test/subProcessTest.cpp
+	<folly/Subprocess.h>
+	<folly/Exception.h>
+	<folly/Format.h>
+	<folly/FileUtil.h>
+	<folly/String.h>
+	<folly/gen/String.h>
+	<folly/gen/File.h>
+	<folly/portability/Unistd.h>
+	<folly/gen/Core.h>
+	<folly/File.h>
+	<iostream>
+	<string>
+	<functional>
+	<vector>
+	<gtest/gtest.h>
+	<boost/filesystem.hpp>
 
