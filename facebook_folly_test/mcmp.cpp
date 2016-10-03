@@ -15,6 +15,7 @@
 #include <thread>
 #include <utility>
 #include <atomic>
+#include <chrono>
 
 FOLLY_ASSUME_FBVECTOR_COMPATIBLE_1(boost::intrusive_ptr);
 
@@ -171,7 +172,7 @@ TEST(MPMCQueue, enq_capacity_test) {
 TEST(MPMCQueue,mcmp_race){
 
     int consumers = 3;
-    int producers = 2;
+    int producers = 3;
     int uplimit = 100;
     MPMCQueue<int> _queue(10);
 
@@ -182,27 +183,34 @@ TEST(MPMCQueue,mcmp_race){
     FOR_EACH_RANGE(i,0,consumers){
         std::thread ithread([&](){
             while(true){
-                int tmp;
-                _queue.blockingRead(tmp);
-                if(tmp < 0) {
+                int readin,tmp;
+                _queue.blockingRead(readin);
+                if(readin < 0) {
                     waited_consumers --;
                     return;
                 }
-                if(tmp > rv) rv = tmp;
+                do{
+                    tmp = readin - 1;
+                    //cout << rv << ' ' << tmp << ' ' << readin << endl;
+                }while(!rv.compare_exchange_strong(tmp,readin));
             }
         });
         cthds.push_back( std::forward<thread>(ithread) );
     }
 
+    //test cpu consumption
+    this_thread::sleep_for(std::chrono::seconds(10));
+
     vector<thread> pthds;
-    atomic_int wv(0);
+    atomic_int wv(1);
     FOR_EACH_RANGE(i,0,producers){
         std::thread ithread([&](){
             while(true){
-                wv++;
-                if(wv <= uplimit)
-                    _queue.blockingWrite(wv);
-                if(wv >= uplimit) {
+                int tv = wv.fetch_add(1);
+                if(tv <= uplimit){
+                    _queue.blockingWrite(tv);
+                }
+                if(tv >= uplimit) {
                     return ;
                 }
             }
@@ -224,13 +232,13 @@ TEST(MPMCQueue,mcmp_race){
         ithds.join();
     }
 
-    EXPECT_EQ(rv,wv);
+    EXPECT_EQ(rv,uplimit);
 
 }
 
 int main(){
     int argc = 2;
-    char* argv[] = { "mcmp_test","--gtest_filter=MPMCQueue.*"};
+    char* argv[] = { "mcmp_test","--gtest_filter=MPMCQueue.mcmp_race"};
     testing::InitGoogleTest(&argc,argv);
     RUN_ALL_TESTS();
     return 0;

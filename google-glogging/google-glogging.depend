@@ -1,0 +1,12 @@
+# depslib dependency file v1.0
+1475464167 source:/home/xudi/cpp/google-glogging/ghelper.cpp
+	<stdlib.h>
+	"gLogHelper.h"
+
+1475464089 /home/xudi/cpp/google-glogging/gLogHelper.h
+	<glog/logging.h>
+	<glog/raw_logging.h>
+
+1475464309 source:/home/xudi/cpp/google-glogging/main.cpp
+	"gLogHelper.h"
+

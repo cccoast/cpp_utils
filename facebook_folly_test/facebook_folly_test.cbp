@@ -51,6 +51,7 @@
 		<Unit filename="fbstring_test.cpp" />
 		<Unit filename="mcmp.cpp" />
 		<Unit filename="mcmp_pipeline_test.cpp" />
+		<Unit filename="packedSyncPtr_test.cpp" />
 		<Unit filename="promise_future_test.cpp" />
 		<Unit filename="subProcessTest.cpp" />
 		<Unit filename="timeoutQueue_test.cpp" />
