@@ -7,6 +7,9 @@
 	<glog/logging.h>
 	<glog/raw_logging.h>
 
-1475464309 source:/home/xudi/cpp/google-glogging/main.cpp
+1475566242 source:/home/xudi/cpp/google-glogging/main.cpp
 	"gLogHelper.h"
+	<gflags/gflags.h>
+	<gtest/gtest.h>
+	<string>
 
