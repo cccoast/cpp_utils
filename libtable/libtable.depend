@@ -1,0 +1,16 @@
+# depslib dependency file v1.0
+1476088915 source:/home/xudi/github/libtable/table.c
+	<stdlib.h>
+	<stdio.h>
+	<string.h>
+	<ctype.h>
+	<stdarg.h>
+	<limits.h>
+	<assert.h>
+	"table.h"
+
+1476173966 /home/xudi/github/libtable/table.h
+	<stddef.h>
+	<stdio.h>
+	<stdbool.h>
+

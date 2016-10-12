@@ -1,13 +1,32 @@
 # depslib dependency file v1.0
-1475030571 source:/home/xudi/cpp/cppLangTest/main.cpp
+1476174067 source:/home/xudi/cpp/cppLangTest/main.cpp
 	<iostream>
 	<stdio.h>
 	<memory>
+	<gtest/gtest.h>
 
-1474961195 source:/home/xudi/cpp/cppLangTest/jemalloc_test.cpp
+1476174143 source:/home/xudi/cpp/cppLangTest/jemalloc_test.cpp
 	<iostream>
+	<malloc.h>
 
-1475031683 source:/home/xudi/cpp/cppLangTest/gtest_test.cpp
+1476176849 source:/home/xudi/cpp/cppLangTest/gtest_test.cpp
 	<iostream>
 	"gtest/gtest.h"
+	<gtest/gtest.h>
+	"/home/xudi/github/libtable/table.h"
+
+1476173966 /home/xudi/github/libtable/table.h
+	<stddef.h>
+	<stdio.h>
+	<stdbool.h>
+
+1476177611 source:/home/xudi/github/libtable/table.c
+	<stdlib.h>
+	<stdio.h>
+	<string.h>
+	<ctype.h>
+	<stdarg.h>
+	<limits.h>
+	<assert.h>
+	"table.h"
 

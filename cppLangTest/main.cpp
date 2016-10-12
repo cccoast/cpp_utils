@@ -1,13 +1,14 @@
 #include <iostream>
 #include <stdio.h>
 #include <memory>
+#include <gtest/gtest.h>
 
 using namespace std;
 
-int new_at_specific_position(){
+int main(){
 
-    int p;
-    new (&p) int(10);
-    cout << p << endl;
-    return 0;
+    int argc = 2;
+    char* argv[] = { "ALL_TEST","--gtest_filter=PRETTY_PRINT.*"};
+    testing::InitGoogleTest(&argc,argv);
+    return RUN_ALL_TESTS();
 }

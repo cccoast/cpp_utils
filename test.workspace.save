@@ -3,5 +3,6 @@
 	<Workspace title="Workspace">
 		<Project filename="facebook_folly_test/facebook_folly_test.cbp" />
 		<Project filename="cppLangTest/cppLangTest.cbp" />
+		<Project filename="libtable/libtable.cbp" />
 	</Workspace>
 </CodeBlocks_workspace_file>

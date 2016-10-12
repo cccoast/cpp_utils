@@ -1,5 +1,33 @@
-//##################################################################################
-//###@author xudi                                                                  #														
-//###@Mail   xudi1989@ruc.edu.cn                                                   #
-//###@Lisence GPL                                                                  #
-//##################################################################################
+
+#include <iostream>
+#include "gtest/gtest.h"
+
+using namespace std;
+
+#include <gtest/gtest.h>
+#include "/home/xudi/github/libtable/table.h"
+
+TEST(PRETTY_PRINT,LIBTABLE){
+
+    struct table t;
+        table_init(&t,
+            "NDays","%d",
+            "exRule","%d",
+            "culPnL","%d",
+            "TrdsofDay","%d",
+            "WIN%%","%d",
+            "PerTrd$","%.2f",
+            "TrdLen$","%d",
+            "ShpRatio","%.2f",
+            "200Shp","%.2f",
+            "incShp","%.2f",
+            "trdShp","%.2f",
+            NULL
+        );
+        table_add(&t,
+            100,1,2000000,
+		    -10000,44,ytd/(pnTradesPerRule[i]+ALMOST_ZERO),
+		    trdLen, sharpea, sharp200, sharpeb, sharpec);
+        table_print(&t, 300, stdout);
+        table_free(&t);
+}
