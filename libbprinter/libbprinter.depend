@@ -1,0 +1,24 @@
+# depslib dependency file v1.0
+1476330157 source:/home/xudi/github/bprinter/src/table_printer.cpp
+	"../include/bprinter/table_printer.h"
+	<stdexcept>
+	<iomanip>
+	<stdexcept>
+
+1476330269 source:/home/xudi/github/bprinter/src/test_main.cxx
+	"../include/bprinter/table_printer.h"
+	<math.h>
+	<boost/spirit/include/karma.hpp>
+
+1476239882 /home/xudi/github/bprinter/include/bprinter/table_printer.h
+	<iostream>
+	<iomanip>
+	<vector>
+	<string>
+	<sstream>
+	<cmath>
+	"impl/table_printer.tpp.h"
+
+1476329275 /home/xudi/github/bprinter/include/bprinter/impl/table_printer.tpp.h
+	<boost/spirit/include/karma.hpp>
+

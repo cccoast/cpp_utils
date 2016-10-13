@@ -35,6 +35,7 @@
 					<Add option="-lgtest" />
 					<Add option="-lgtest_main" />
 					<Add option="-lpthread" />
+					<Add library="/usr/local/lib/libbprinter.a" />
 				</Linker>
 			</Target>
 		</Build>
