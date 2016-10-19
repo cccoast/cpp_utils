@@ -35,7 +35,7 @@
 					<Add option="-lgtest" />
 					<Add option="-lgtest_main" />
 					<Add option="-lpthread" />
-					<Add library="/usr/local/lib/libbprinter.a" />
+					<Add library="/home/xudi/cpp/libbprinter/libbprinter.a" />
 				</Linker>
 			</Target>
 		</Build>
@@ -43,9 +43,9 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
-		<Unit filename="gtest_test.cpp" />
 		<Unit filename="jemalloc_test.cpp" />
 		<Unit filename="main.cpp" />
+		<Unit filename="pretty_printer.cpp" />
 		<Extensions>
 			<code_completion />
 			<debugger />
