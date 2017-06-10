@@ -1,0 +1,18 @@
+//##################################################################################
+//###@author xudi                                                                  #
+//###@Mail   xudi1989@ruc.edu.cn                                                   #
+//###@Lisence GPL                                                                  #
+//##################################################################################
+#include <folly/futures/Future.h>
+#include <iostream>
+
+using namespace std;
+
+int main(){
+
+    folly::Promise<int> p;
+    folly::Future< action = p.getFuture();
+    action.then([](int x){ cout << x << endl;});
+    p.setValue(100);
+    return 0;
+}
