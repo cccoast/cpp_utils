@@ -1,15 +1,14 @@
 
 #include "pyShmDataFrame.h"
+#include <iostream>
 
 using namespace std;
 using namespace boost::python;
 
-
-BOOST_PYTHON_MODULE(ShmPython)
+BOOST_PYTHON_MODULE(libpyShmDataFrame)
 {
 	class_<pyDataFrame>("pyDataFrame",init<string>())
 		.def("connect_shm", &pyDataFrame::connect_shm)
-		.def("create_shm", &pyDataFrame::create_shm)
 		.def("create_shm", &pyDataFrame::create_shm)
 		/// fetch
 		.def("get_double", &pyDataFrame::get_field_double)
@@ -19,3 +18,4 @@ BOOST_PYTHON_MODULE(ShmPython)
 		.def("set_long", &pyDataFrame::set_field_long)
 		;
 }
+
