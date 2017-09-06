@@ -12,7 +12,7 @@ ShmDataFrame::ShmDataFrame(){
     memset(this,0,sizeof(*this));
 }
 
-void ShmDataFrame::connect_shm(string ipckey){
+int ShmDataFrame::connect_shm(string ipckey){
     LinuxShmAdaptor shm_api(ipckey);
     int re = shm_api.create_mem_handler();
     if(re < 0){
@@ -29,9 +29,10 @@ void ShmDataFrame::connect_shm(string ipckey){
         cout << "no such ipckey or can not connect to ipckey " << ipckey << endl;
         exit(-1);
     }
+    return 0;
 }
 
-void ShmDataFrame::create_shm(string ipckey,long nColumns,long nIndexs,vector<long>& column_sizes){
+int ShmDataFrame::create_shm(string ipckey,long nColumns,long nIndexs,vector<long>& column_sizes){
     LinuxShmCreator shm_api(ipckey);
     size_t _row_size = std::accumulate(column_sizes.begin(),column_sizes.end(),0);
     size_t alloc_size = _row_size * nIndexs + sizeof(*this) + 10240;
@@ -61,11 +62,13 @@ void ShmDataFrame::create_shm(string ipckey,long nColumns,long nIndexs,vector<lo
         }
         memcpy(_shm_addr,this,sizeof(*this));
     }
+    return 0;
 }
 
-void ShmDataFrame::set_field(long index,long column,void* src){
+int ShmDataFrame::set_field(long index,long column,void* src){
     void* des = get_field(index,column);
     memcpy(des,src,this->column_sizes[column]);
+    return 0;
 }
 
 void* ShmDataFrame::get_field(long index, long column){

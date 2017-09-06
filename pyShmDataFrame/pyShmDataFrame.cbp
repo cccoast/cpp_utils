@@ -13,6 +13,8 @@
 				<Option compiler="gcc" />
 				<Option createDefFile="1" />
 				<Option createStaticLib="1" />
+				<Option projectLinkerOptionsRelation="2" />
+				<Option projectIncludeDirsRelation="2" />
 				<Compiler>
 					<Add option="-O2" />
 					<Add option="-std=c++14" />
@@ -22,7 +24,6 @@
 				<Linker>
 					<Add option="-s" />
 					<Add option="-lboost_python" />
-					<Add option="-lpthread" />
 				</Linker>
 			</Target>
 		</Build>
@@ -30,11 +31,12 @@
 			<Add option="-Wall" />
 			<Add option="-std=c++14" />
 			<Add option="-fPIC" />
+			<Add directory="/home/xudi/anaconda2/include/python2.7" />
 		</Compiler>
-		<Linker>
-			<Add option="-lboost_python" />
-		</Linker>
+		<Unit filename="../ShmDataFrame/ShmDataFrame.cpp" />
+		<Unit filename="../ShmDataFrame/ShmDataFrame.h" />
 		<Unit filename="main.cpp" />
+		<Unit filename="pyShmDataFrame.cpp" />
 		<Unit filename="pyShmDataFrame.h" />
 		<Extensions>
 			<code_completion />

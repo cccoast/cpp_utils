@@ -36,9 +36,9 @@ public:
 
 public:
     ShmDataFrame();
-    void create_shm(string ipckey,long nColumns,long nIndexs,vector<long>& column_sizes);
-    void connect_shm(string ipckey);
-    void set_field(long index,long column,void* src);
+    int create_shm(string ipckey,long nColumns,long nIndexs,vector<long>& column_sizes);
+    int connect_shm(string ipckey);
+    int set_field(long index,long column,void* src);
     void* get_field(long index, long column);
 };
 
