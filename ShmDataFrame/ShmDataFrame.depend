@@ -1,0 +1,35 @@
+# depslib dependency file v1.0
+1504684348 source:/home/xudi/cpp/ShmDataFrame/ShmDataFrame.cpp
+	"ShmDataFrame.h"
+	"linuxShm.h"
+	<iostream>
+	<algorithm>
+	<functional>
+	<string>
+
+1504684282 /home/xudi/cpp/ShmDataFrame/ShmDataFrame.h
+	<string>
+	<vector>
+
+1504681960 /home/xudi/cpp/ShmDataFrame/linuxShm.h
+	<iostream>
+	<string>
+	<memory>
+	<stdio.h>
+	<string.h>
+	<stdlib.h>
+	<unistd.h>
+	<sys/ipc.h>
+	<sys/shm.h>
+	<sys/types.h>
+	<sys/fcntl.h>
+	<sys/stat.h>
+	<sys/mman.h>
+
+1504684375 source:/home/xudi/cpp/ShmDataFrame/test.cpp
+	"ShmDataFrame.h"
+	<iostream>
+	<string>
+	<thread>
+	<memory.h>
+

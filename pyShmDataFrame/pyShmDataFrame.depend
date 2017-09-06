@@ -1,0 +1,15 @@
+# depslib dependency file v1.0
+1504685143 source:/home/xudi/cpp/pyShmDataFrame/main.cpp
+	"pyShmDataFrame.h"
+
+1504685125 /home/xudi/cpp/pyShmDataFrame/pyShmDataFrame.h
+	"../ShmDataFrame/ShmDataFrame.h"
+	<boost/python.hpp>
+	<boost/python/list.hpp>
+	<boost/python/stl_iterator.hpp>
+	<string>
+
+1504684282 /home/xudi/cpp/ShmDataFrame/ShmDataFrame.h
+	<string>
+	<vector>
+
