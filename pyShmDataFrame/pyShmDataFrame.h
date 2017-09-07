@@ -165,28 +165,27 @@ public:
         }
     }
 
-    void set_col(long index, long col, boost::python::list& vec){
-
+    void set_col(long index, long col, boost::python::list& vec)\
+    {
         switch(data_frame.column_sizes[col])
+        {
+            case sizeof(int32_t):
             {
-                case sizeof(int32_t):
-                {
-                    _set_col_impl<int32_t>(index,col,vec);
-                    break;
-                }
-                case sizeof(double):
-                {
-                    _set_col_impl<double>(index,col,vec);
-                    break;
-                }
-                default:
-                {
-                    _set_col_impl_str(index,col,vec);
-                    break;
-                }
+                _set_col_impl<int32_t>(index,col,vec);
+                break;
             }
+            case sizeof(double):
+            {
+                _set_col_impl<double>(index,col,vec);
+                break;
+            }
+            default:
+            {
+                _set_col_impl_str(index,col,vec);
+                break;
+            }
+        }
     }
-
 
     /// get
     double get_field_double(long index, long column)
