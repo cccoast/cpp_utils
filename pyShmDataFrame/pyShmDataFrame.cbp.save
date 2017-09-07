@@ -19,6 +19,7 @@
 					<Add option="-O2" />
 					<Add option="-std=c++14" />
 					<Add option="-fPIC" />
+					<Add directory="/home/xudi/anaconda2/include/python2.7" />
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
@@ -35,7 +36,6 @@
 		<Unit filename="../ShmDataFrame/ShmDataFrame.cpp" />
 		<Unit filename="../ShmDataFrame/ShmDataFrame.h" />
 		<Unit filename="main.cpp" />
-		<Unit filename="pyShmDataFrame.cpp" />
 		<Unit filename="pyShmDataFrame.h" />
 		<Extensions>
 			<code_completion />

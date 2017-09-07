@@ -36,10 +36,12 @@ public:
     {
         return data_frame.nColumns;
     }
+
     long getRows()
     {
         return data_frame.nIndexes;
     }
+
     boost::python::list getUnitSizes()
     {
         boost::python::list v;
@@ -48,6 +50,31 @@ public:
             v.append(data_frame.column_sizes[i]);
         }
         return v;
+    }
+
+    void set_field_names(boost::python::list& vec)
+    {
+        vector<string> _vec = to_std_vector<string>(vec);
+        this->data_frame.set_field_names(_vec);
+    }
+
+    boost::python::list get_field_names()
+    {
+        boost::python::list vec;
+        for(string s:this->data_frame.get_field_names()){
+            vec.append(boost::python::str(s));
+        }
+        return vec;
+    }
+
+    boost::python::str get_field_name(long index)
+    {
+        return boost::python::str(this->data_frame.get_field_name(index));
+    }
+
+    void set_field_name(long index,boost::python::str& s){
+        string _s = boost::python::extract<std::string>(s);
+        this->data_frame.set_field_name(index,_s);
     }
 
     void create_shm(long nColumns,long nIndexs,boost::python::list column_sizes)
@@ -149,7 +176,7 @@ public:
                 }
                 case sizeof(double):
                 {
-                    _set_col_impl<int32_t>(index,col,vec);
+                    _set_col_impl<double>(index,col,vec);
                     break;
                 }
                 default:
@@ -191,19 +218,19 @@ public:
             {
                 case sizeof(int32_t):
                 {
-                    int32_t _v = *(int32_t *)start_addr;
+                    int32_t v = *((int32_t *)start_addr);
                     vec.append(v);
                     break;
                 }
                 case sizeof(double):
                 {
-                    double _v = *(double *)start_addr;
+                    double v = *((double *)start_addr);
                     vec.append(v);
                     break;
                 }
                 default:
                 {
-                    boost::python::str _v((char *)start_addr);
+                    boost::python::str v(string(((char *)start_addr)));
                     vec.append(v);
                     break;
                 }
@@ -216,46 +243,47 @@ public:
     template<typename T>
     boost::python::list _get_col_impl(long index, long col, long length){
         boost::python::list vec;
-        int length = boost::python::len(vec);
         void* start_addr = this->data_frame.get_field(index,col);
         size_t row_size  = this->data_frame.row_size;
         size_t copy_size = this->data_frame.column_sizes[col];
         for(int i = 0; i < length; i++){
-            T v = *(T *)start_addr;
+            T v = *((T *)start_addr);
             vec.append(v);
             start_addr += row_size;
         }
+        return vec;
     }
 
-    void _get_col_impl_str(long index, long col, long length){
+     boost::python::list _get_col_impl_str(long index, long col, long length){
         boost::python::list vec;
         void* start_addr = this->data_frame.get_field(index,col);
         size_t row_size  = this->data_frame.row_size;
         size_t copy_size = this->data_frame.column_sizes[col];
         for(int i = 0; i < length; i++){
-            string v = boost::python::extract<string>(vec[i]);
-            memcpy(start_addr,v.c_str(),copy_size);
+            boost::python::str v(string((char *)start_addr));
+            vec.append(v);
             start_addr += row_size;
         }
+        return vec;
     }
 
-    void get_col(long index, long col, long length){
+     boost::python::list get_col(long index, long col, long length){
 
         switch(data_frame.column_sizes[col])
             {
                 case sizeof(int32_t):
                 {
-                    _get_col_impl<int32_t>(index,col,len);
+                    return _get_col_impl<int32_t>(index,col,length);
                     break;
                 }
                 case sizeof(double):
                 {
-                    _get_col_impl<int32_t>(index,col,vec);
+                    return _get_col_impl<double>(index,col,length);
                     break;
                 }
                 default:
                 {
-                    _set_col_impl_str(index,col,vec);
+                    return _get_col_impl_str(index,col,length);
                     break;
                 }
             }

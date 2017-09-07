@@ -36,10 +36,12 @@ public:
     {
         return data_frame.nColumns;
     }
+
     long getRows()
     {
         return data_frame.nIndexes;
     }
+
     boost::python::list getUnitSizes()
     {
         boost::python::list v;
@@ -48,6 +50,31 @@ public:
             v.append(data_frame.column_sizes[i]);
         }
         return v;
+    }
+
+    void set_field_names(boost::python::list vec)
+    {
+        vector<string> _vec = to_std_vector<string>(vec);
+        this->data_frame.set_field_names(_vec);
+    }
+
+    boost::python::list get_field_names()
+    {
+        boost::python::list vec;
+        for(string s:this->data_frame.get_field_names()){
+            vec.append(boost::python::str(s));
+        }
+        return vec;
+    }
+
+    boost::python::str get_field_name(long index)
+    {
+        return boost::python::str(this->data_frame.get_field_name(index));
+    }
+
+    void set_field_name(long index,boost::python::str& s){
+        string _s = boost::python::extract<std::string>(s);
+        this->data_frame.set_field_name(index,_s);
     }
 
     void create_shm(long nColumns,long nIndexs,boost::python::list column_sizes)

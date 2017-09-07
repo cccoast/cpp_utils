@@ -21,6 +21,8 @@ BOOST_PYTHON_MODULE(libpyShmDataFrame)
 		.def("get_str", &pyDataFrame::get_field_str)
 		.def("get_row",&pyDataFrame::get_row)
 		.def("get_col",&pyDataFrame::get_col)
+		.def("get_field_names",&pyDataFrame::get_field_names)
+		.def("get_field_name",&pyDataFrame::get_field_name)
 		/// dump
 		.def("set_double", &pyDataFrame::set_field_double)
 		.def("set_long", &pyDataFrame::set_field_long)
@@ -28,6 +30,8 @@ BOOST_PYTHON_MODULE(libpyShmDataFrame)
 		.def("set_str", &pyDataFrame::set_field_str)
 		.def("set_row",&pyDataFrame::set_row)
 		.def("set_col",&pyDataFrame::set_col)
+		.def("set_field_names",&pyDataFrame::set_field_names)
+        .def("set_field_name",&pyDataFrame::set_field_name)
 		;
 }
 
