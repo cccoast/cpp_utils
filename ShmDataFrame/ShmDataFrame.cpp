@@ -20,7 +20,7 @@ int ShmDataFrame::connect_shm(string ipckey)
     int re = shm_api.create_mem_handler();
     if(re < 0)
     {
-        cout << "can not create shm" << endl;
+        cout << "can not connect shm, not exist" << endl;
         exit(-1);
     }
     void* _shm_addr = shm_api.create_start_addr();
@@ -47,7 +47,7 @@ int ShmDataFrame::create_shm(string ipckey,long nColumns,long nIndexs,vector<lon
     int re = shm_api.create_memory(alloc_size);
     if(re < 0)
     {
-        cout << "can not create shm" << endl;
+        cout << "can not create shm, already exist" << endl;
         exit(-1);
     }
     void* _shm_addr = shm_api.create_start_addr();
