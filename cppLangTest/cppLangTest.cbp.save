@@ -35,6 +35,7 @@
 					<Add option="-lgtest" />
 					<Add option="-lgtest_main" />
 					<Add option="-lpthread" />
+					<Add option="-ljemalloc" />
 					<Add library="/home/xudi/cpp/libbprinter/libbprinter.a" />
 				</Linker>
 			</Target>
@@ -43,9 +44,7 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
-		<Unit filename="jemalloc_test.cpp" />
 		<Unit filename="main.cpp" />
-		<Unit filename="pretty_printer.cpp" />
 		<Extensions>
 			<code_completion />
 			<debugger />

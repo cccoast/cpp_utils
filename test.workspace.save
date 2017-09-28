@@ -5,6 +5,6 @@
 		<Project filename="cppLangTest/cppLangTest.cbp" />
 		<Project filename="libtable/libtable.cbp" />
 		<Project filename="libbprinter/libbprinter.cbp" />
-		<Project filename="ShmDataFrame/ShmDataFrame.cbp" />
+		<Project filename="rpclib/rpclib.cbp" />
 	</Workspace>
 </CodeBlocks_workspace_file>

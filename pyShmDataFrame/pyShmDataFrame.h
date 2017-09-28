@@ -61,7 +61,8 @@ public:
     boost::python::list get_field_names()
     {
         boost::python::list vec;
-        for(string s:this->data_frame.get_field_names()){
+        for(string s:this->data_frame.get_field_names())
+        {
             vec.append(boost::python::str(s));
         }
         return vec;
@@ -72,7 +73,8 @@ public:
         return boost::python::str(this->data_frame.get_field_name(index));
     }
 
-    void set_field_name(long index,boost::python::str& s){
+    void set_field_name(long index,boost::python::str& s)
+    {
         string _s = boost::python::extract<std::string>(s);
         this->data_frame.set_field_name(index,_s);
     }
@@ -117,48 +119,52 @@ public:
         {
             switch(data_frame.column_sizes[col])
             {
-                case sizeof(int32_t):
-                {
-                    int32_t _v = boost::python::extract<int32_t>(vec[col]);
-                    memcpy(start_addr,&_v,sizeof(int32_t));
-                    break;
-                }
-                case sizeof(double):
-                {
-                    double _v = boost::python::extract<double>(vec[col]);
-                    memcpy(start_addr,&_v,sizeof(double));
-                    break;
-                }
-                default:
-                {
-                    string _v = boost::python::extract<std::string>(vec[col]);
-                    memcpy(start_addr,_v.c_str(),data_frame.column_sizes[col]);
-                    break;
-                }
+            case sizeof(int32_t):
+            {
+                int32_t _v = boost::python::extract<int32_t>(vec[col]);
+                memcpy(start_addr,&_v,sizeof(int32_t));
+                break;
+            }
+            case sizeof(double):
+            {
+                double _v = boost::python::extract<double>(vec[col]);
+                memcpy(start_addr,&_v,sizeof(double));
+                break;
+            }
+            default:
+            {
+                string _v = boost::python::extract<std::string>(vec[col]);
+                memcpy(start_addr,_v.c_str(),data_frame.column_sizes[col]);
+                break;
+            }
             }
             start_addr += data_frame.column_sizes[col];
         }
     }
 
     template<typename T>
-    void _set_col_impl(long index, long col, boost::python::list& vec){
+    void _set_col_impl(long index, long col, boost::python::list& vec)
+    {
         int length = boost::python::len(vec);
         void* start_addr = this->data_frame.get_field(index,col);
         size_t row_size  = this->data_frame.row_size;
         size_t copy_size = this->data_frame.column_sizes[col];
-        for(int i = 0; i < length; i++){
+        for(int i = 0; i < length; i++)
+        {
             T v = boost::python::extract<T>(vec[i]);
             memcpy(start_addr,&v,copy_size);
             start_addr += row_size;
         }
     }
 
-    void _set_col_impl_str(long index, long col, boost::python::list& vec){
+    void _set_col_impl_str(long index, long col, boost::python::list& vec)
+    {
         int length = boost::python::len(vec);
         void* start_addr = this->data_frame.get_field(index,col);
         size_t row_size  = this->data_frame.row_size;
         size_t copy_size = this->data_frame.column_sizes[col];
-        for(int i = 0; i < length; i++){
+        for(int i = 0; i < length; i++)
+        {
             string v = boost::python::extract<string>(vec[i]);
             memcpy(start_addr,v.c_str(),copy_size);
             start_addr += row_size;
@@ -169,21 +175,21 @@ public:
     {
         switch(data_frame.column_sizes[col])
         {
-            case sizeof(int32_t):
-            {
-                _set_col_impl<int32_t>(index,col,vec);
-                break;
-            }
-            case sizeof(double):
-            {
-                _set_col_impl<double>(index,col,vec);
-                break;
-            }
-            default:
-            {
-                _set_col_impl_str(index,col,vec);
-                break;
-            }
+        case sizeof(int32_t):
+        {
+            _set_col_impl<int32_t>(index,col,vec);
+            break;
+        }
+        case sizeof(double):
+        {
+            _set_col_impl<double>(index,col,vec);
+            break;
+        }
+        default:
+        {
+            _set_col_impl_str(index,col,vec);
+            break;
+        }
         }
     }
 
@@ -208,31 +214,32 @@ public:
         return string((char *)data_frame.get_field(index,column));
     }
 
-    boost::python::list get_row(long index){
+    boost::python::list get_row(long index)
+    {
         boost::python::list vec;
         void* start_addr = data_frame.get_field(index,0);
         for(int col = 0; col < data_frame.nColumns; col++)
         {
             switch(data_frame.column_sizes[col])
             {
-                case sizeof(int32_t):
-                {
-                    int32_t v = *((int32_t *)start_addr);
-                    vec.append(v);
-                    break;
-                }
-                case sizeof(double):
-                {
-                    double v = *((double *)start_addr);
-                    vec.append(v);
-                    break;
-                }
-                default:
-                {
-                    boost::python::str v(string(((char *)start_addr)));
-                    vec.append(v);
-                    break;
-                }
+            case sizeof(int32_t):
+            {
+                int32_t v = *((int32_t *)start_addr);
+                vec.append(v);
+                break;
+            }
+            case sizeof(double):
+            {
+                double v = *((double *)start_addr);
+                vec.append(v);
+                break;
+            }
+            default:
+            {
+                boost::python::str v(string(((char *)start_addr)));
+                vec.append(v);
+                break;
+            }
             }
             start_addr += data_frame.column_sizes[col];
         }
@@ -240,12 +247,14 @@ public:
     }
 
     template<typename T>
-    boost::python::list _get_col_impl(long index, long col, long length){
+    boost::python::list _get_col_impl(long index, long col, long length)
+    {
         boost::python::list vec;
         void* start_addr = this->data_frame.get_field(index,col);
         size_t row_size  = this->data_frame.row_size;
         size_t copy_size = this->data_frame.column_sizes[col];
-        for(int i = 0; i < length; i++){
+        for(int i = 0; i < length; i++)
+        {
             T v = *((T *)start_addr);
             vec.append(v);
             start_addr += row_size;
@@ -253,12 +262,14 @@ public:
         return vec;
     }
 
-     boost::python::list _get_col_impl_str(long index, long col, long length){
+    boost::python::list _get_col_impl_str(long index, long col, long length)
+    {
         boost::python::list vec;
         void* start_addr = this->data_frame.get_field(index,col);
         size_t row_size  = this->data_frame.row_size;
         size_t copy_size = this->data_frame.column_sizes[col];
-        for(int i = 0; i < length; i++){
+        for(int i = 0; i < length; i++)
+        {
             boost::python::str v(string((char *)start_addr));
             vec.append(v);
             start_addr += row_size;
@@ -266,26 +277,27 @@ public:
         return vec;
     }
 
-     boost::python::list get_col(long index, long col, long length){
+    boost::python::list get_col(long index, long col, long length)
+    {
 
         switch(data_frame.column_sizes[col])
-            {
-                case sizeof(int32_t):
-                {
-                    return _get_col_impl<int32_t>(index,col,length);
-                    break;
-                }
-                case sizeof(double):
-                {
-                    return _get_col_impl<double>(index,col,length);
-                    break;
-                }
-                default:
-                {
-                    return _get_col_impl_str(index,col,length);
-                    break;
-                }
-            }
+        {
+        case sizeof(int32_t):
+        {
+            return _get_col_impl<int32_t>(index,col,length);
+            break;
+        }
+        case sizeof(double):
+        {
+            return _get_col_impl<double>(index,col,length);
+            break;
+        }
+        default:
+        {
+            return _get_col_impl_str(index,col,length);
+            break;
+        }
+        }
     }
 
 };
