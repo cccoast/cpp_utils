@@ -1,0 +1,69 @@
+//##################################################################################
+//###@author xudi                                                                  #
+//###@Mail   xudi1989@ruc.edu.cn                                                   #
+//###@Lisence GPL                                                                  #
+//##################################################################################
+
+
+#include "impl_test.h"
+#include "utility"
+
+/*
+template<typename T>
+class impl_test<T>::impl{
+public:
+    T val;
+    void set_attr(T& v){
+        val = v;
+    }
+    T get_attr(){
+        return val;
+    }
+};
+
+template<typename T>
+impl_test<T>::impl_test(){
+    _impl = new impl;
+}
+
+template<typename T>
+impl_test<T>::~impl_test(){
+    if(_impl != nullptr){
+        delete _impl;
+        _impl = nullptr;
+    }
+}
+
+template<typename T>
+T impl_test<T>::get_attr(){
+    return this->_impl->get_attr();
+}
+
+template<typename T>
+void impl_test<T>::set_attr(T&& v){
+    return this->_impl->set_attr(std::forward<T>(v));
+}
+*/
+
+// \@ Simple 
+/*
+template<typename T>
+impl_test<T>::impl_test(){
+
+};
+
+template<typename T>
+impl_test<T>::~impl_test(){
+
+};
+
+template<typename T>
+T impl_test<T>::get_attr(){
+    return val;
+};
+
+template<typename T>
+void impl_test<T>::set_attr(T&& v){
+    val = v;
+};
+*/
