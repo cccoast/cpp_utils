@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="grpc_test" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Release">
+				<Option output="bin/Release/grpc_test" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Release/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-O2" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+					<Add option="-lprotobuf" />
+					<Add option="-pthread" />
+					<Add library="/home/xudi/github/grpc/build/libgrpc.a" />
+					<Add library="/home/xudi/github/grpc/build/libgrpc++.a" />
+					<Add library="/home/xudi/github/grpc/build/libgpr.a" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-Wall" />
+		</Compiler>
+		<Unit filename="greeter_client.cc" />
+		<Unit filename="helloworld.grpc.pb.cc" />
+		<Unit filename="helloworld.grpc.pb.h" />
+		<Unit filename="helloworld.pb.cc" />
+		<Unit filename="helloworld.pb.h" />
+		<Extensions>
+			<code_completion />
+			<debugger />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>

@@ -1,0 +1,68 @@
+# depslib dependency file v1.0
+1546341627 source:/home/xudi/cpp/grpc_test/grpc_test/helloworld.pb.cc
+	"helloworld.pb.h"
+	<algorithm>
+	<google/protobuf/stubs/common.h>
+	<google/protobuf/stubs/port.h>
+	<google/protobuf/io/coded_stream.h>
+	<google/protobuf/wire_format_lite_inl.h>
+	<google/protobuf/descriptor.h>
+	<google/protobuf/generated_message_reflection.h>
+	<google/protobuf/reflection_ops.h>
+	<google/protobuf/wire_format.h>
+	"third_party/protobuf/version.h"
+
+1546341627 /home/xudi/cpp/grpc_test/grpc_test/helloworld.pb.h
+	<string>
+	<google/protobuf/stubs/common.h>
+	<google/protobuf/io/coded_stream.h>
+	<google/protobuf/arena.h>
+	<google/protobuf/arenastring.h>
+	<google/protobuf/generated_message_table_driven.h>
+	<google/protobuf/generated_message_util.h>
+	<google/protobuf/inlined_string_field.h>
+	<google/protobuf/metadata.h>
+	<google/protobuf/message.h>
+	<google/protobuf/repeated_field.h>
+	<google/protobuf/extension_set.h>
+	<google/protobuf/unknown_field_set.h>
+
+1546341500 source:/home/xudi/cpp/grpc_test/grpc_test/greeter_client.cc
+	<iostream>
+	<memory>
+	<string>
+	<grpcpp/grpcpp.h>
+	"examples/protos/helloworld.grpc.pb.h"
+	"helloworld.grpc.pb.h"
+
+1546341627 /home/xudi/cpp/grpc_test/grpc_test/helloworld.grpc.pb.h
+	"helloworld.pb.h"
+	<functional>
+	<grpcpp/impl/codegen/async_generic_service.h>
+	<grpcpp/impl/codegen/async_stream.h>
+	<grpcpp/impl/codegen/async_unary_call.h>
+	<grpcpp/impl/codegen/client_callback.h>
+	<grpcpp/impl/codegen/method_handler_impl.h>
+	<grpcpp/impl/codegen/proto_utils.h>
+	<grpcpp/impl/codegen/rpc_method.h>
+	<grpcpp/impl/codegen/server_callback.h>
+	<grpcpp/impl/codegen/service_type.h>
+	<grpcpp/impl/codegen/status.h>
+	<grpcpp/impl/codegen/stub_options.h>
+	<grpcpp/impl/codegen/sync_stream.h>
+
+1546341627 source:/home/xudi/cpp/grpc_test/grpc_test/helloworld.grpc.pb.cc
+	"helloworld.pb.h"
+	"helloworld.grpc.pb.h"
+	<functional>
+	<grpcpp/impl/codegen/async_stream.h>
+	<grpcpp/impl/codegen/async_unary_call.h>
+	<grpcpp/impl/codegen/channel_interface.h>
+	<grpcpp/impl/codegen/client_unary_call.h>
+	<grpcpp/impl/codegen/client_callback.h>
+	<grpcpp/impl/codegen/method_handler_impl.h>
+	<grpcpp/impl/codegen/rpc_service_method.h>
+	<grpcpp/impl/codegen/server_callback.h>
+	<grpcpp/impl/codegen/service_type.h>
+	<grpcpp/impl/codegen/sync_stream.h>
+

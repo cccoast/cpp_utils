@@ -1,0 +1,26 @@
+# depslib dependency file v1.0
+1547133878 source:/home/xudi/cpp/timer/main.cpp
+	<memory>
+	<iostream>
+	"timer.h"
+	"timerQueue.h"
+
+1547133999 /home/xudi/cpp/timer/timer.h
+	"../Util/Win32_Time.h"
+	<sys/time.h>
+	"timerQueue.h"
+	<functional>
+	<memory>
+	<thread>
+	<boost/asio.hpp>
+	<boost/bind.hpp>
+	<boost/system/system_error.hpp>
+	<boost/date_time/posix_time/posix_time.hpp>
+
+1547129966 /home/xudi/cpp/timer/timerQueue.h
+	<vector>
+	<queue>
+	<algorithm>
+	<functional>
+	<utility>
+

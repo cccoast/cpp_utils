@@ -33,7 +33,6 @@
 				<Linker>
 					<Add option="-s" />
 					<Add option="-lgtest" />
-					<Add option="-lgtest_main" />
 					<Add option="-lpthread" />
 					<Add option="-ljemalloc" />
 					<Add library="/home/xudi/cpp/libbprinter/libbprinter.a" />
