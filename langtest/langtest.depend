@@ -1,0 +1,5 @@
+# depslib dependency file v1.0
+1547293877 source:/home/xudi/cpp/langtest/main.cpp
+	<boost/thread/thread.hpp>
+	<iostream>
+
