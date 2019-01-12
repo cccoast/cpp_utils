@@ -1,1 +1,1 @@
-This project is for cpp language testing snd single development.
+This project is for testing cpp language traits and do some single development.
