@@ -20,45 +20,34 @@ using namespace std;
 
 using callBackFunction = std::function<void(void)>;
 
-
 class timer :public boost::noncopyable
 {
-	boost::asio::io_service::work idle;
+	unique_ptr<boost::asio::io_service::work> idle;
+	unique_ptr<boost::asio::io_service> iop;
 	boost::asio::io_service& io;
-	shared_ptr<boost::asio::io_service> iop;
 public:
-
 	boost::posix_time::time_duration getDurationFromNow(timeEvent& time_event) {
 		struct timeval tv;
-#ifdef _MSC_VER
-		gettimeofday_fast(&tv, NULL);
-#else
 		gettimeofday(&tv,NULL);
-#endif
 		long milliSecFromNow = (time_event.first - tv.tv_sec) * 1000 + int((time_event.second - tv.tv_usec) / 1000);
 		milliSecFromNow = milliSecFromNow > 0 ? milliSecFromNow : 0;
 		boost::posix_time::time_duration tmp = boost::posix_time::time_duration(boost::posix_time::millisec(milliSecFromNow));
 		return std::move(tmp);
 	}
 
-	timer(boost::asio::io_service& _io) :
+	timer(boost::asio::io_service& _io):
 		io(_io),
-		idle(_io)
+		idle(make_unique<boost::asio::io_service::work>(_io))
 	{}
 
-	timer():
-        iop(make_shared<boost::asio::io_service>()),
-        io(*iop),
-        idle(io)
-	{}
+	timer() = delete;
 
 	void start() {
 		std::thread t(boost::bind(&boost::asio::io_service::run, &io));
 		t.detach();
 	}
 
-	void timeOut(const boost::system::error_code& ec,callBackFunction& callback_func, shared_ptr<boost::asio::deadline_timer>& _dtimer) {
-
+	void timeOut(const boost::system::error_code& ec,std::decay<callBackFunction>::type& callback_func, shared_ptr<boost::asio::deadline_timer>& _dtimer) {
 		if(!ec)
 		{
             callback_func();

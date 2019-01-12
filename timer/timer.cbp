@@ -13,15 +13,21 @@
 				<Option compiler="gcc" />
 				<Compiler>
 					<Add option="-O2" />
+					<Add option="-std=c++1y" />
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
+					<Add option="-pthread" />
+					<Add option="-lboost_system" />
 				</Linker>
 			</Target>
 		</Build>
 		<Compiler>
 			<Add option="-Wall" />
 		</Compiler>
+		<Unit filename="main.cpp" />
+		<Unit filename="timer.h" />
+		<Unit filename="timerQueue.h" />
 		<Extensions>
 			<code_completion />
 			<debugger />

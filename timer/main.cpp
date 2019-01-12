@@ -18,8 +18,8 @@ void tvshift(struct timeval &tv, long milliSec) {
 }
 
 int main(){
-    //boost::asio::io_service io;
-    timer mytimer;
+    boost::asio::io_service io;
+    timer mytimer(io);
     mytimer.start();
     int expire = 5000;
     struct timeval tv;
@@ -34,13 +34,15 @@ int main(){
         print_use_count(wkp.use_count());
         callBackFunction print_func = [count](){ cout << "callback = " << count.use_count() << ' ' << *count << endl; };
         print_use_count(wkp.use_count());
+        cout << "hi" << endl;
         mytimer.post(te,print_func);
+        cout << "hi" << endl;
         mytimer.post(te,[count](){ cout << "callback = " << count.use_count() << ' ' << *count << endl; });
         print_use_count(wkp.use_count());
     }
     print_use_count(wkp.use_count());
     while(true){
-        sleep(1);
+        sleep(4);
         cout << wkp.use_count() << endl;
     }
     return 0;

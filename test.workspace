@@ -7,5 +7,6 @@
 		<Project filename="libbprinter/libbprinter.cbp" />
 		<Project filename="cpp_json/cpp_json/cpp_json.cbp" />
 		<Project filename="grpc_test/grpc_test/grpc_test.cbp" />
+		<Project filename="timer/timer.cbp" />
 	</Workspace>
 </CodeBlocks_workspace_file>
