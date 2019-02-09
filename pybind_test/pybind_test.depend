@@ -1,6 +1,12 @@
 # depslib dependency file v1.0
-1549706891 source:/home/xudi/cpp/pybind_test/example.cpp
+1549724039 source:/home/xudi/cpp/pybind_test/example.cpp
 	<pybind11/pybind11.h>
+	<pybind11/stl_bind.h>
+	<pybind11/stl.h>
+	<pybind11/pytypes.h>
+	<vector>
+	<map>
+	<string>
 	"header.h"
 
 1549643795 /home/xudi/anaconda2/include/python2.7/pybind11/pybind11.h
@@ -300,10 +306,34 @@
 1549643795 /home/xudi/anaconda2/include/python2.7/pybind11/detail/init.h
 	"class.h"
 
-1549707076 /home/xudi/cpp/pybind_test/header.h
+1549713646 /home/xudi/cpp/pybind_test/header.h
 	<string>
 	<memory>
 	<functional>
 	<iostream>
 	<vector>
+
+1549643795 /home/xudi/anaconda2/include/python2.7/pybind11/stl.h
+	"pybind11.h"
+	<set>
+	<unordered_set>
+	<map>
+	<unordered_map>
+	<iostream>
+	<list>
+	<valarray>
+	<optional>
+	<experimental/optional>
+	<variant>
+	<optional>
+	<variant>
+
+1549643795 /home/xudi/anaconda2/include/python2.7/pybind11/stl_bind.h
+	"detail/common.h"
+	"operators.h"
+	<algorithm>
+	<sstream>
+
+1549643795 /home/xudi/anaconda2/include/python2.7/pybind11/operators.h
+	"pybind11.h"
 

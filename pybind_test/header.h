@@ -55,7 +55,7 @@ public:
         PYBIND11_OVERLOAD(
             int,
             Animal,
-            use_count
+            use_count,
         );
     }
 };
