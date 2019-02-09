@@ -1,37 +1,29 @@
-//##################################################################################
-//###@author xudi                                                                  #
-//###@Mail   xudi1989@ruc.edu.cn                                                   #
-//###@Lisence GPL                                                                  #
-//##################################################################################
-
+#include <memory>
 #include <iostream>
-#include "impl_test.h"
 
 using namespace std;
 
+class Base: public std::enable_shared_from_this<Base>{
+public:
+    int get_use_count(){
+        shared_ptr<Base> sptr = shared_from_this();
+        return sptr.use_count();
+    }
+};
+
+class Derived: public Base{
+};
+
 int main(){
+    shared_ptr<Base> base = make_shared<Base>();
+    cout << base.use_count() << endl;
+    cout << base->get_use_count() << endl;
+    cout << base.use_count() << endl;
 
-    {
-        impl_test<int> storage;
-        storage.set_attr(10);
-        cout << storage.get_attr() << endl;
-    }
-    cout << endl;
-
-    {
-        impl_test<int> storage;
-        int v = 11;
-        storage.set_attr(v);
-        cout << storage.get_attr() << endl;
-    }
-    cout << endl;
-
-    {
-        impl_test<int> storage;
-        int v2 = 12;
-        storage.set_attr(std::move(v2));
-        cout << storage.get_attr() << endl;
-    }
-
+    auto derived = make_shared<Derived>();
+    cout << derived.use_count() << endl;
+    cout << derived->get_use_count() << endl;
+    cout << derived.use_count() << endl;
     return 0;
 }
+

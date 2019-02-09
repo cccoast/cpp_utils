@@ -1,7 +1,7 @@
 # depslib dependency file v1.0
-1549677486 source:/home/xudi/cpp/langtest/main.cpp
-	<iostream>
+1549706891 source:/home/xudi/cpp/pybind_test/example.cpp
 	<pybind11/pybind11.h>
+	"header.h"
 
 1549643795 /home/xudi/anaconda2/include/python2.7/pybind11/pybind11.h
 	"attr.h"
@@ -299,4 +299,11 @@
 
 1549643795 /home/xudi/anaconda2/include/python2.7/pybind11/detail/init.h
 	"class.h"
+
+1549707076 /home/xudi/cpp/pybind_test/header.h
+	<string>
+	<memory>
+	<functional>
+	<iostream>
+	<vector>
 
