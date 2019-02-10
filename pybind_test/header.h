@@ -20,11 +20,12 @@ class Animal:public std::enable_shared_from_this<Animal>{
 public:
     virtual ~Animal() { }
     virtual std::string go(int n_times) = 0;
+    virtual Animal* deep_copy_raw() = 0;
+    virtual std::shared_ptr<Animal> deep_copy_shared() = 0;
     virtual void say_hi() = 0;
     virtual int use_count(){
         return shared_from_this().use_count() - 1;
     }
-
 };
 
 
@@ -43,10 +44,26 @@ public:
         );
     }
 
+    Animal* deep_copy_raw() override {
+        PYBIND11_OVERLOAD_PURE(
+            Animal*,
+            Animal,
+            deep_copy,
+        );
+    }
+
+    std::shared_ptr<Animal> deep_copy_shared() override {
+        PYBIND11_OVERLOAD_PURE(
+            std::shared_ptr<Animal>,
+            Animal,
+            deep_copy,
+        );
+    }
+
     void say_hi() override {
         PYBIND11_OVERLOAD_PURE(
-            void, /* Return type */
-            Animal,      /* Parent class */
+            void,           /* Return type */
+            Animal,         /* Parent class */
             say_hi,         /* Name of function in C++ (must match Python name) */
         );
     }
@@ -74,14 +91,19 @@ public:
         std::cout << "hi puppy" << std::endl;
     }
 
+    Animal* deep_copy_raw(){
+        return new Dog;
+    }
+
+    std::shared_ptr<Animal> deep_copy_shared(){
+        return std::make_shared<Dog>();
+    }
+
     int use_count(){
         return shared_from_this().use_count() - 1;
     }
-};
 
-std::string call_go(std::shared_ptr<Animal>& animal) {
-    return animal->go(animal.use_count());
-}
+};
 
 class Container:public std::enable_shared_from_this<Container>{
 private:

@@ -3,9 +3,13 @@
 #include <pybind11/stl_bind.h>
 #include <pybind11/stl.h>
 #include <pybind11/pytypes.h>
+
+#include <iostream>
+#include <memory>
 #include <vector>
 #include <map>
 #include <string>
+#include <algorithm>
 #include "header.h"
 
 using map_type = std::map<std::string, int>;
@@ -13,6 +17,30 @@ PYBIND11_MAKE_OPAQUE(std::vector<int>);
 PYBIND11_MAKE_OPAQUE(map_type);
 
 namespace py = pybind11;
+
+std::string call_go(std::shared_ptr<Animal>& animal) {
+    return animal->go(animal.use_count());
+}
+
+void delete_deepcopied_raw(std::shared_ptr<Animal>& animal){
+    Animal* pet = animal->deep_copy_raw();
+    delete pet;
+}
+
+void delete_deepcopied_shared(std::shared_ptr<Animal>& animal){
+    std::shared_ptr<Animal> pet = animal->deep_copy_shared();
+}
+
+///Animal's memory is managed by shared_ptr, return raw ptr will cause undefined behaviour
+Animal* make_deep_copy_rawptr(std::shared_ptr<Animal>& animal){
+    Animal* pet = animal->deep_copy_raw();
+    return pet;
+}
+
+std::shared_ptr<Animal> make_deep_copy_sharedptr(std::shared_ptr<Animal>& animal){
+    std::shared_ptr<Animal> pet = animal->deep_copy_shared();
+    return pet;
+}
 
 int add(int i, int j) {
     return i + j;
@@ -43,13 +71,28 @@ py::list get_range_move(int n){
     return l;
 }
 
-void pylist_append_ref(py::list &v,int n) {
-   v.append(n);
+void pylist_append_ref(py::list &l,int n) {
+   l.append(n);
 }
 
 void pylist_append_ptr(py::list* l,int n){
     l->append(n);
 }
+
+void int_list_map_print(py::list& l){
+    std::for_each(l.begin(),l.end(),[](auto v){ std::cout << py::cast<int>(v) << ' ';});
+}
+
+void list_map_print(py::list& l){
+    std::for_each(l.begin(),l.end(),[](auto v){ std::cout << v << ' ';});
+}
+
+void int_list_map_plus(py::list& l,int n){
+    for(int i = 0; i < l.size(); i++){
+        l[i] = l[i].cast<int>() + n;
+    }
+}
+
 
 
 PYBIND11_MODULE(libexample, m) {
@@ -65,12 +108,14 @@ PYBIND11_MODULE(libexample, m) {
         .def(py::init<>())
         .def("go", &Animal::go)
         .def("say_hi", &Animal::say_hi)
-        .def("use_count", &Animal::use_count);
+        .def("use_count", &Animal::use_count)
+        .def("deep_copy", &Animal::deep_copy_raw);
 
     py::class_<Dog, Animal,std::shared_ptr<Dog> >(m, "Dog")
         .def(py::init<>())
         .def("say_hi", &Dog::say_hi)
-        .def("use_count", &Dog::use_count);
+        .def("use_count", &Dog::use_count)
+        .def("deep_copy", &Dog::deep_copy_raw);
 
     py::class_<Container,std::shared_ptr<Container> >(m, "Container")
         .def(py::init<>())
@@ -84,6 +129,13 @@ PYBIND11_MODULE(libexample, m) {
     m.def("get_range_move",&get_range_move,py::return_value_policy::move);
     m.def("pylist_append_ref",&pylist_append_ref);
     m.def("pylist_append_ptr",&pylist_append_ptr);
+    m.def("int_list_map_print",&int_list_map_print);
+    m.def("list_map_print",&list_map_print);
+    m.def("int_list_map_plus",&int_list_map_plus);
+    m.def("make_deep_copy_rawptr",&make_deep_copy_rawptr);
+    m.def("make_deep_copy_sharedptr",&make_deep_copy_sharedptr);
+    m.def("delete_deepcopied_raw",&delete_deepcopied_raw);
+    m.def("delete_deepcopied_shared",&delete_deepcopied_shared);
 
     py::bind_vector<std::vector<int>>(m, "VectorInt");
     py::bind_map<map_type>(m, "MapStringInt");
