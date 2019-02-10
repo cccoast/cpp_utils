@@ -22,20 +22,35 @@ void append_1(std::vector<int> &v) {
    v.push_back(1);
 }
 
-py::list* get_range_list(int n){
+py::list* get_range_ptr(int n){
     py::list* l = new py::list;
     for(int i = 0; i < n; i++)
         l->append(i);
     return l;
 }
 
-void pylist_append_1ref(py::list &v) {
-   v.append(1);
+py::list get_range_copy(int n){
+    py::list l;
+    for(int i = 0; i < n; i++)
+        l.append(i);
+    return l;
 }
 
-void pylist_append_1p(py::list* l){
-    l->append(1);
+py::list get_range_move(int n){
+    py::list l;
+    for(int i = 0; i < n; i++)
+        l.append(i);
+    return l;
 }
+
+void pylist_append_ref(py::list &v,int n) {
+   v.append(n);
+}
+
+void pylist_append_ptr(py::list* l,int n){
+    l->append(n);
+}
+
 
 PYBIND11_MODULE(libexample, m) {
     m.doc() = "pybind11 example plugin"; // optional module docstring
@@ -64,9 +79,11 @@ PYBIND11_MODULE(libexample, m) {
 
     m.def("call_go", &call_go);
     m.def("append_one",&append_1);
-    m.def("get_range_list",&get_range_list);
-    m.def("pylist_append_1ref",&pylist_append_1ref);
-    m.def("pylist_append_1p",&pylist_append_1p);
+    m.def("get_range_ptr",&get_range_ptr);
+    m.def("get_range_copy",&get_range_copy,py::return_value_policy::copy);
+    m.def("get_range_move",&get_range_move,py::return_value_policy::move);
+    m.def("pylist_append_ref",&pylist_append_ref);
+    m.def("pylist_append_ptr",&pylist_append_ptr);
 
     py::bind_vector<std::vector<int>>(m, "VectorInt");
     py::bind_map<map_type>(m, "MapStringInt");
