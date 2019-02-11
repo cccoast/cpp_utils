@@ -7,6 +7,7 @@
 #include <iostream>
 #include <vector>
 
+using namespace std;
 
 struct Pet {
     Pet(const std::string &name) : name(name) { }
@@ -17,12 +18,22 @@ struct Pet {
 };
 
 class Animal:public std::enable_shared_from_this<Animal>{
+    vector<shared_ptr<Animal>> container;
 public:
-    virtual ~Animal() { }
-    virtual std::string go(int n_times) = 0;
-    virtual Animal* deep_copy_raw() = 0;
-    virtual std::shared_ptr<Animal> deep_copy_shared() = 0;
-    virtual void say_hi() = 0;
+    vector<shared_ptr<Animal>>& get_container(){ return this->container;}
+    void map_say_hi(){
+        int count = 0;
+        cout << "container size = " << container.size() << endl;
+        for(shared_ptr<Animal>& sptr: container){
+            cout << count++ << endl;
+            sptr->say_hi();
+        }
+    }
+    virtual ~Animal() {}
+    virtual std::string go(int n_times) { return "";}
+    virtual Animal* deep_copy_raw() {return NULL;}
+    virtual std::shared_ptr<Animal> deep_copy_shared() { return make_shared<Animal>(); }
+    virtual void say_hi() { cout << "hi animal" << endl; }
     virtual int use_count(){
         return shared_from_this().use_count() - 1;
     }
@@ -36,7 +47,7 @@ public:
 
     /* Trampoline (need one for each virtual function) */
     std::string go(int n_times) override {
-        PYBIND11_OVERLOAD_PURE(
+        PYBIND11_OVERLOAD(
             std::string, /* Return type */
             Animal,      /* Parent class */
             go,         /* Name of function in C++ (must match Python name) */
@@ -45,23 +56,23 @@ public:
     }
 
     Animal* deep_copy_raw() override {
-        PYBIND11_OVERLOAD_PURE(
+        PYBIND11_OVERLOAD(
             Animal*,
             Animal,
-            deep_copy,
+            deep_copy_raw,
         );
     }
 
     std::shared_ptr<Animal> deep_copy_shared() override {
-        PYBIND11_OVERLOAD_PURE(
+        PYBIND11_OVERLOAD(
             std::shared_ptr<Animal>,
             Animal,
-            deep_copy,
+            deep_copy_shared,
         );
     }
 
     void say_hi() override {
-        PYBIND11_OVERLOAD_PURE(
+        PYBIND11_OVERLOAD(
             void,           /* Return type */
             Animal,         /* Parent class */
             say_hi,         /* Name of function in C++ (must match Python name) */

@@ -14,6 +14,7 @@
 
 using map_type = std::map<std::string, int>;
 PYBIND11_MAKE_OPAQUE(std::vector<int>);
+PYBIND11_MAKE_OPAQUE(std::vector<shared_ptr<Animal>>);
 PYBIND11_MAKE_OPAQUE(map_type);
 
 namespace py = pybind11;
@@ -37,6 +38,7 @@ Animal* make_deep_copy_rawptr(std::shared_ptr<Animal>& animal){
     return pet;
 }
 
+///virtual property has lost, cpp don't now the true type of pet
 std::shared_ptr<Animal> make_deep_copy_sharedptr(std::shared_ptr<Animal>& animal){
     std::shared_ptr<Animal> pet = animal->deep_copy_shared();
     return pet;
@@ -94,7 +96,6 @@ void int_list_map_plus(py::list& l,int n){
 }
 
 
-
 PYBIND11_MODULE(libexample, m) {
     m.doc() = "pybind11 example plugin"; // optional module docstring
     m.def("add", &add, "A function which adds two numbers");
@@ -109,7 +110,9 @@ PYBIND11_MODULE(libexample, m) {
         .def("go", &Animal::go)
         .def("say_hi", &Animal::say_hi)
         .def("use_count", &Animal::use_count)
-        .def("deep_copy", &Animal::deep_copy_raw);
+        .def("deep_copy", &Animal::deep_copy_raw)
+        .def("get_container", &Animal::get_container, py::return_value_policy::reference)
+        .def("map_say_hi",&Animal::map_say_hi);
 
     py::class_<Dog, Animal,std::shared_ptr<Dog> >(m, "Dog")
         .def(py::init<>())
@@ -139,4 +142,6 @@ PYBIND11_MODULE(libexample, m) {
 
     py::bind_vector<std::vector<int>>(m, "VectorInt");
     py::bind_map<map_type>(m, "MapStringInt");
+
+    py::bind_vector<std::vector<std::shared_ptr<Animal>>>(m,"VectorAnimal");
 }
