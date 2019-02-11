@@ -19,8 +19,25 @@ PYBIND11_MAKE_OPAQUE(map_type);
 
 namespace py = pybind11;
 
+void map_say_hi(std::shared_ptr<Animal>& animal){
+    animal->map_say_hi();
+}
+
+void map_go(std::shared_ptr<Animal>& animal,int n){
+    int count = 0;
+    cout << "container size = " << animal->get_container().size() << endl;
+    for(shared_ptr<Animal>& sptr: animal->get_container()){
+        cout << count++ << endl;
+        cout << sptr->go(n) << endl;
+    }
+}
+
 std::string call_go(std::shared_ptr<Animal>& animal) {
     return animal->go(animal.use_count());
+}
+
+void call_regist(std::shared_ptr<Animal>& animal){
+    animal->regist();
 }
 
 void delete_deepcopied_raw(std::shared_ptr<Animal>& animal){
@@ -42,6 +59,13 @@ Animal* make_deep_copy_rawptr(std::shared_ptr<Animal>& animal){
 std::shared_ptr<Animal> make_deep_copy_sharedptr(std::shared_ptr<Animal>& animal){
     std::shared_ptr<Animal> pet = animal->deep_copy_shared();
     return pet;
+}
+
+///cannot dynamic call inherited virtaul function
+void test_deep_copy_sharedptr(std::shared_ptr<Animal>& animal){
+    auto pet = animal->deep_copy_shared();
+    pet->say_hi();
+    return ;
 }
 
 int add(int i, int j) {
@@ -112,7 +136,8 @@ PYBIND11_MODULE(libexample, m) {
         .def("use_count", &Animal::use_count)
         .def("deep_copy", &Animal::deep_copy_raw)
         .def("get_container", &Animal::get_container, py::return_value_policy::reference)
-        .def("map_say_hi",&Animal::map_say_hi);
+        .def("map_say_hi",&Animal::map_say_hi)
+        .def("regist",&Animal::regist);
 
     py::class_<Dog, Animal,std::shared_ptr<Dog> >(m, "Dog")
         .def(py::init<>())
@@ -135,10 +160,14 @@ PYBIND11_MODULE(libexample, m) {
     m.def("int_list_map_print",&int_list_map_print);
     m.def("list_map_print",&list_map_print);
     m.def("int_list_map_plus",&int_list_map_plus);
-    m.def("make_deep_copy_rawptr",&make_deep_copy_rawptr);
-    m.def("make_deep_copy_sharedptr",&make_deep_copy_sharedptr);
-    m.def("delete_deepcopied_raw",&delete_deepcopied_raw);
-    m.def("delete_deepcopied_shared",&delete_deepcopied_shared);
+    m.def("make_deep_copy_rawptr",&make_deep_copy_rawptr,py::return_value_policy::take_ownership);
+    m.def("make_deep_copy_sharedptr",&make_deep_copy_sharedptr,py::return_value_policy::copy);
+    m.def("delete_deepcopied_raw",&delete_deepcopied_raw,py::return_value_policy::take_ownership);
+    m.def("delete_deepcopied_shared",&delete_deepcopied_shared,py::return_value_policy::copy);
+    m.def("call_regist",&call_regist);
+    m.def("test_deep_copy_sharedptr",&test_deep_copy_sharedptr);
+    m.def("map_say_hi",&map_say_hi);
+    m.def("map_go",&map_go);
 
     py::bind_vector<std::vector<int>>(m, "VectorInt");
     py::bind_map<map_type>(m, "MapStringInt");

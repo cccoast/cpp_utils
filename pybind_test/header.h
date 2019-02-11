@@ -29,11 +29,12 @@ public:
             sptr->say_hi();
         }
     }
+    virtual void regist() {}
     virtual ~Animal() {}
-    virtual std::string go(int n_times) { return "";}
+    virtual std::string go(int n_times) { return "animal animal animal";}
     virtual Animal* deep_copy_raw() {return NULL;}
     virtual std::shared_ptr<Animal> deep_copy_shared() { return make_shared<Animal>(); }
-    virtual void say_hi() { cout << "hi animal" << endl; }
+    virtual void say_hi() { cout << "fuck" << endl; }
     virtual int use_count(){
         return shared_from_this().use_count() - 1;
     }
@@ -84,6 +85,14 @@ public:
             int,
             Animal,
             use_count,
+        );
+    }
+
+    void regist() override {
+        PYBIND11_OVERLOAD(
+            void,
+            Animal,
+            regist,
         );
     }
 };
