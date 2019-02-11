@@ -36,8 +36,10 @@ std::string call_go(std::shared_ptr<Animal>& animal) {
     return animal->go(animal.use_count());
 }
 
-void call_regist(std::shared_ptr<Animal>& animal){
+void call_regist(std::shared_ptr<PyAnimal>& animal){
     animal->regist();
+    animal->say_hi();
+    animal->map_say_hi();
 }
 
 void delete_deepcopied_raw(std::shared_ptr<Animal>& animal){
@@ -62,9 +64,9 @@ std::shared_ptr<Animal> make_deep_copy_sharedptr(std::shared_ptr<Animal>& animal
 }
 
 ///cannot dynamic call inherited virtaul function
-void test_deep_copy_sharedptr(std::shared_ptr<Animal>& animal){
-    auto pet = animal->deep_copy_shared();
-    pet->say_hi();
+void test_deep_copy_sharedptr(std::shared_ptr<PyAnimal>& animal){
+    shared_ptr<PyAnimal> pet = std::dynamic_pointer_cast<PyAnimal>(animal->deep_copy_shared());
+    cout << pet->go(1) << endl;
     return ;
 }
 
