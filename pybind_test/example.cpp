@@ -19,11 +19,11 @@ PYBIND11_MAKE_OPAQUE(map_type);
 
 namespace py = pybind11;
 
-void map_say_hi(std::shared_ptr<Animal>& animal){
+void map_say_hi(std::shared_ptr<Animal> animal){
     animal->map_say_hi();
 }
 
-void map_go(std::shared_ptr<Animal>& animal,int n){
+void map_go(std::shared_ptr<Animal> animal,int n){
     int count = 0;
     cout << "container size = " << animal->get_container().size() << endl;
     for(shared_ptr<Animal>& sptr: animal->get_container()){
@@ -32,39 +32,41 @@ void map_go(std::shared_ptr<Animal>& animal,int n){
     }
 }
 
-std::string call_go(std::shared_ptr<Animal>& animal) {
+std::string call_go(std::shared_ptr<Animal> animal) {
     return animal->go(animal.use_count());
 }
 
-void call_regist(std::shared_ptr<PyAnimal>& animal){
+void call_regist(std::shared_ptr<PyAnimal> animal){
     animal->regist();
+    cout << "===================cpp call say hi==============" << endl;
     animal->say_hi();
+    cout << "===================cpp call map say hi=============="<< endl;
     animal->map_say_hi();
 }
 
-void delete_deepcopied_raw(std::shared_ptr<Animal>& animal){
+void delete_deepcopied_raw(std::shared_ptr<Animal> animal){
     Animal* pet = animal->deep_copy_raw();
     delete pet;
 }
 
-void delete_deepcopied_shared(std::shared_ptr<Animal>& animal){
+void delete_deepcopied_shared(std::shared_ptr<Animal> animal){
     std::shared_ptr<Animal> pet = animal->deep_copy_shared();
 }
 
 ///Animal's memory is managed by shared_ptr, return raw ptr will cause undefined behaviour
-Animal* make_deep_copy_rawptr(std::shared_ptr<Animal>& animal){
+Animal* make_deep_copy_rawptr(std::shared_ptr<Animal> animal){
     Animal* pet = animal->deep_copy_raw();
     return pet;
 }
 
 ///virtual property has lost, cpp don't now the true type of pet
-std::shared_ptr<Animal> make_deep_copy_sharedptr(std::shared_ptr<Animal>& animal){
+std::shared_ptr<Animal> make_deep_copy_sharedptr(std::shared_ptr<Animal> animal){
     std::shared_ptr<Animal> pet = animal->deep_copy_shared();
     return pet;
 }
 
 ///cannot dynamic call inherited virtaul function
-void test_deep_copy_sharedptr(std::shared_ptr<PyAnimal>& animal){
+void test_deep_copy_sharedptr(std::shared_ptr<PyAnimal> animal){
     shared_ptr<PyAnimal> pet = std::dynamic_pointer_cast<PyAnimal>(animal->deep_copy_shared());
     cout << pet->go(1) << endl;
     return ;
@@ -139,7 +141,8 @@ PYBIND11_MODULE(libexample, m) {
         .def("deep_copy", &Animal::deep_copy_raw)
         .def("get_container", &Animal::get_container, py::return_value_policy::reference)
         .def("map_say_hi",&Animal::map_say_hi)
-        .def("regist",&Animal::regist);
+        .def("regist",&Animal::regist)
+        .def("push_back",&Animal::push_back);
 
     py::class_<Dog, Animal,std::shared_ptr<Dog> >(m, "Dog")
         .def(py::init<>())

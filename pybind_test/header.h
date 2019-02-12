@@ -25,9 +25,12 @@ public:
         int count = 0;
         cout << "container size = " << container.size() << endl;
         for(shared_ptr<Animal>& sptr: container){
-            cout << count++ << endl;
+            cout << count++ << ' ';
             sptr->say_hi();
         }
+    }
+    void push_back(shared_ptr<Animal> pet){
+        container.push_back(pet);
     }
     virtual void regist() {}
     virtual ~Animal() {}
@@ -129,7 +132,7 @@ class Container:public std::enable_shared_from_this<Container>{
 private:
     std::vector<std::shared_ptr<Animal>> _v;
 public:
-    void add(std::shared_ptr<Animal>& sp){
+    void add(std::shared_ptr<Animal> sp){
         _v.push_back(sp);
     }
     void exec_last(){
