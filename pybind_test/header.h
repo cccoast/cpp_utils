@@ -29,6 +29,8 @@ public:
             sptr->say_hi();
         }
     }
+    ///pass by ref or value does not matter here
+    //void push_back(shared_ptr<Animal> pet){
     void push_back(shared_ptr<Animal> pet){
         container.push_back(pet);
     }
