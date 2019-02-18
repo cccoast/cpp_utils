@@ -68,8 +68,9 @@ std::shared_ptr<Animal> make_deep_copy_sharedptr(std::shared_ptr<Animal>& animal
 
 ///cannot dynamic call inherited virtaul function
 void test_deep_copy_sharedptr(std::shared_ptr<Animal>& animal){
-    shared_ptr<Animal> pet = std::dynamic_pointer_cast<Animal>(animal->deep_copy_shared());
-    cout << pet->go(1) << endl;
+    //shared_ptr<Animal> pet = std::dynamic_pointer_cast<Animal>(animal->deep_copy_shared());
+    shared_ptr<Animal> pet = animal->deep_copy_shared();
+    pet->say_hi();
     return ;
 }
 
@@ -140,10 +141,14 @@ PYBIND11_MODULE(libexample, m) {
         .def("say_hi", &Animal::say_hi)
         .def("use_count", &Animal::use_count)
         .def("deep_copy", &Animal::deep_copy_raw)
+        //py::keep_alive<1, 2>() does not effect lifetime of the object newed by python
+        .def("deep_copy_shared", &Animal::deep_copy_shared, py::keep_alive<1, 2>())
         .def("get_container", &Animal::get_container, py::return_value_policy::reference)
         .def("map_say_hi",&Animal::map_say_hi)
         .def("regist",&Animal::regist)
-        .def("push_back",&Animal::push_back);
+        //by set py::keep_alive<1, 2>() will keep the Python Object's lifetime
+        //.def("push_back",&Animal::push_back);
+        .def("push_back",&Animal::push_back,py::keep_alive<1, 2>());
 
     py::class_<Dog, Animal,std::shared_ptr<Dog> >(m, "Dog")
         .def(py::init<>())
