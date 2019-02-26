@@ -4,6 +4,8 @@
 #include <pybind11/stl.h>
 #include <pybind11/pytypes.h>
 
+#include <boost/timer.hpp>
+
 #include <iostream>
 #include <memory>
 #include <vector>
@@ -18,6 +20,19 @@ PYBIND11_MAKE_OPAQUE(std::vector<shared_ptr<Animal>>);
 PYBIND11_MAKE_OPAQUE(map_type);
 
 namespace py = pybind11;
+
+void hi_husky(std::shared_ptr<Animal>& animal){
+    animal->say_hi();
+}
+
+void call_greet_friend(std::shared_ptr<Animal>& animal,int n){
+    Pet* pet = new Pet("mimimi");
+    boost::timer t;
+    for(int i = 0; i < n; i++)
+        animal->greet_friend(i,i);
+    cout << "time cost  = " << t.elapsed() << endl;
+    delete pet;
+}
 
 ///pass by ref or value does not matter here
 void map_say_hi(std::shared_ptr<Animal>& animal){
@@ -69,8 +84,7 @@ std::shared_ptr<Animal> make_deep_copy_sharedptr(std::shared_ptr<Animal>& animal
 ///cannot dynamic call inherited virtaul function
 void test_deep_copy_sharedptr(std::shared_ptr<Animal>& animal){
     //shared_ptr<Animal> pet = std::dynamic_pointer_cast<Animal>(animal->deep_copy_shared());
-    shared_ptr<Animal> pet = animal->deep_copy_shared();
-    pet->say_hi();
+    animal->deep_copy_shared()->say_hi();
     return ;
 }
 
@@ -148,13 +162,15 @@ PYBIND11_MODULE(libexample, m) {
         .def("regist",&Animal::regist)
         //by set py::keep_alive<1, 2>() will keep the Python Object's lifetime
         //.def("push_back",&Animal::push_back);
-        .def("push_back",&Animal::push_back,py::keep_alive<1, 2>());
+        .def("push_back",&Animal::push_back,py::keep_alive<1, 2>())
+        .def("greet_friend",&Animal::greet_friend, py::return_value_policy::reference);
 
-    py::class_<Dog, Animal,std::shared_ptr<Dog> >(m, "Dog")
+    py::class_<Dog, PyDog, Animal,std::shared_ptr<Dog> >(m, "Dog")
         .def(py::init<>())
         .def("say_hi", &Dog::say_hi)
         .def("use_count", &Dog::use_count)
         .def("deep_copy", &Dog::deep_copy_raw);
+
 
     py::class_<Container,std::shared_ptr<Container> >(m, "Container")
         .def(py::init<>())
@@ -179,6 +195,8 @@ PYBIND11_MODULE(libexample, m) {
     m.def("test_deep_copy_sharedptr",&test_deep_copy_sharedptr);
     m.def("map_say_hi",&map_say_hi);
     m.def("map_go",&map_go);
+    m.def("call_greet_friend",&call_greet_friend);
+    m.def("hi_husky",&hi_husky);
 
     py::bind_vector<std::vector<int>>(m, "VectorInt");
     py::bind_map<map_type>(m, "MapStringInt");

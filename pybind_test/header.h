@@ -9,7 +9,8 @@
 
 using namespace std;
 
-struct Pet {
+class Pet {
+public:
     Pet(const std::string &name) : name(name) { }
     void setName(const std::string &name_) { name = name_; }
     const std::string &getName() const { return name; }
@@ -42,6 +43,10 @@ public:
     virtual void say_hi() { cout << "fuck" << endl; }
     virtual int use_count(){
         return shared_from_this().use_count() - 1;
+    }
+
+    virtual void greet_friend(int n,int m){
+        //cout << "greet " << pet->getName() << endl;
     }
 };
 
@@ -100,6 +105,16 @@ public:
             regist,
         );
     }
+
+    void greet_friend(int n,int m) override {
+        PYBIND11_OVERLOAD(
+            void,
+            Animal,
+            greet_friend,
+            n,
+            m
+        );
+    }
 };
 
 
@@ -112,8 +127,9 @@ public:
         return result;
     }
 
-    void say_hi(){
+    virtual void say_hi(){
         std::cout << "hi puppy" << std::endl;
+        std::cout << "price = " << this->get_price() << std::endl;
     }
 
     Animal* deep_copy_raw(){
@@ -128,6 +144,26 @@ public:
         return shared_from_this().use_count() - 1;
     }
 
+    virtual int get_price(){
+        return -1;
+    }
+
+};
+
+class PyDog : public Dog {
+public:
+    /* Inherit the constructors */
+    using Dog::Dog;
+
+    /* Trampoline (need one for each virtual function) */
+    int get_price() override {
+        PYBIND11_OVERLOAD(
+            int, /* Return type */
+            Dog,      /* Parent class */
+            get_price,         /* Name of function in C++ (must match Python name) */
+            /* Argument(s) */
+        );
+    }
 };
 
 class Container:public std::enable_shared_from_this<Container>{
