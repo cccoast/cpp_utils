@@ -14,12 +14,40 @@
 #include <algorithm>
 #include "header.h"
 
+#include "/quant/include/xengine/condBase.h"
+#include "/quant/include/xengine/Parameter.h"
+
 using map_type = std::map<std::string, int>;
 PYBIND11_MAKE_OPAQUE(std::vector<int>);
 PYBIND11_MAKE_OPAQUE(std::vector<shared_ptr<Animal>>);
 PYBIND11_MAKE_OPAQUE(map_type);
 
 namespace py = pybind11;
+
+void call_condition_performance(shared_ptr<CondBase> cond,int n){
+    TimeParameter tp;
+    boost::timer t;
+    for(int i = 0;i < n;i++)
+        cond->evaluate(0,&tp);
+    cout << "loop number = " << n << endl;
+    cout << "total time cost = " << t.elapsed()  << " secs" << endl;
+    cout << "per call time cost = " << t.elapsed() / n << " secs" << endl;
+}
+
+bool list2carray(py::list pyargs){
+    vector<string> args;
+    for(auto value : pyargs){
+        args.push_back(py::cast<string>(value));
+    }
+    const char *argv[128] = {nullptr};
+    int argc = args.size();
+    cout << argc << endl;
+    for(int i = 0; i < argc; i++)
+        argv[i] = args[i].c_str();
+    for(int i = 0; i < argc; i++)
+        cout << argv[i] << endl;
+    return true;
+}
 
 void hi_husky(std::shared_ptr<Animal>& animal){
     animal->say_hi();
@@ -197,6 +225,8 @@ PYBIND11_MODULE(libexample, m) {
     m.def("map_go",&map_go);
     m.def("call_greet_friend",&call_greet_friend);
     m.def("hi_husky",&hi_husky);
+    m.def("list2carray",&list2carray);
+    m.def("call_condition_performance",&call_condition_performance);
 
     py::bind_vector<std::vector<int>>(m, "VectorInt");
     py::bind_map<map_type>(m, "MapStringInt");
